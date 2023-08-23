@@ -1,7 +1,11 @@
+import { Link } from "react-router-dom";
+
+
 export default function Card(props) {
   const {name, species, gender, image, onClose, id} = props;
   return (
-    <div>
+   <Link to={`/detail/${id}`}> 
+   <div>
       <button
         onClick={() => {
           onClose(id);
@@ -16,5 +20,7 @@ export default function Card(props) {
       <h2>Gender: {gender}</h2>
       <img src={image} alt={name} />
     </div>
+  
+  </Link>
   );
 }

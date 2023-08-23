@@ -2,29 +2,18 @@ import {useState} from "react";
 import axios from "axios";
 import Cards from "./components/Cards.jsx";
 import Nav from "./components/Nav.jsx";
+import About from "./components/About.jsx";
+import Detail from "./components/Detail.jsx";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./App.css";
 
-// const example = [
-//   {
-//     id: 1,
-//     name: "Rick Sanchez",
-//     status: "Alive",
-//     species: "Human",
-//     gender: "Male",
-//     origin: {
-//       name: "Earth (C-137)",
-//       url: "https://rickandmortyapi.com/api/location/1",
-//     },
-//     image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-//   },
-// ];
+
+
 
 function App() {
   const [characters, setCharacters] = useState([]);
 
-  // nueva API
-  //*https://rym2-production.up.railway.app/api/character/${id}?key=henrym-usuariodegithub
 
   function searchHandler(id) {
     axios(
@@ -65,8 +54,16 @@ function App() {
 
   return (
     <div className="App">
-      <Nav onSearch={searchHandler} randomize={randomHandler} />
-      <Cards characters={characters} onClose={closeHandler} />
+      
+        <Nav onSearch={searchHandler} randomize={randomHandler} />
+        <Routes>
+          <Route path="/home" element={<App/>}/>
+          <Route path="/" element={<Cards characters={characters} onClose={closeHandler} />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/detail/:id" element={<Detail />} />
+          
+        </Routes>
+      
     </div>
   );
 }
