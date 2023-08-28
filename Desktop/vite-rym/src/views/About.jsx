@@ -1,4 +1,4 @@
-export default function About () {
+function About () {
     return(
         <div>
             <h1>Joaquin Jose Gabriel Riva</h1>
@@ -9,3 +9,4 @@ export default function About () {
 }
 
 
+export default About;
