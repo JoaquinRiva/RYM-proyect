@@ -4,14 +4,13 @@ import axios from "axios";
 
 import Cards from "./components/Cards.jsx";
 import Nav from "./components/Nav.jsx";
-import About from "./views/About.jsx";
-
-import "./App.css";
 import Detail from "./views/Detail.jsx";
 import ErrorPage from "./views/ErrorPage.jsx";
 import Login from "./views/Login.jsx";
+import Favorites from "./views/Favorites.jsx";
+import About from "./views/About.jsx";
 
-
+import "./App.css";
 
 function App() {
   const location = useLocation();
@@ -99,6 +98,7 @@ function App() {
           element={<Cards characters={characters} onClose={closeHandler} />}
         />
         <Route path="/about" element={<About />} />
+        <Route path="/favorites" element={<Favorites />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>

@@ -1,30 +1,82 @@
 import {useNavigate} from "react-router-dom";
+import {connect} from "react-redux";
+import {addFavorite, removeFavorite} from "../redux/actions/actions";
+import {useState, useEffect} from "react";
 
-export default function Card(props) {
+function Card(props) {
   const navigate = useNavigate();
-  const {name, species, gender, image, onClose, id} = props;
+  const {character, onClose, favorites, addFavorite, removeFavorite} = props;
+  const [isFav, setFav] = useState(false);
 
   function navigateHandler() {
-    navigate(`/detail/${id}`);
+    navigate(`/detail/${character.id}`);
+  }
+
+  useEffect(() => {
+    //[rick, morty, mr poppybutthole]
+    favorites.forEach((fav) => {
+      if (fav.id === character.id) {
+        setFav(true);
+      }
+    });
+  }, [favorites]);
+
+  function handleFavorite(character) {
+    if (!isFav) {
+      addFavorite(character); //{}
+      setFav(true);
+    } else {
+      removeFavorite(character); //id
+      setFav(false);
+    }
   }
 
   return (
     <div>
       <button
         onClick={() => {
-          onClose(id);
+          onClose(character.id);
         }}
       >
         X
       </button>
-      {/* <Link to={`/detail/${id}`}>
-      </Link> */}
-      <h2>Name: {name}</h2>
-      {/* <h2>Status:{status}</h2> */}
-      <h2>Species: {species}</h2>
-      {/* <h2>Origin:{origin}</h2> */}
-      <h2>Gender: {gender}</h2>
-      <img src={image} alt={name} onClick={navigateHandler} />
+
+      <h2>Name: {character.name}</h2>
+      {isFav ? (
+        <button
+          onClick={() => {
+            handleFavorite(character.id);
+          }}
+        >
+          ❤️
+        </button>
+      ) : (
+        <button
+          onClick={() => {
+            handleFavorite(character);
+          }}
+        >
+          🤍
+        </button>
+      )}
+      <h2>Species: {character.species}</h2>
+      <h2>Gender: {character.gender}</h2>
+      <img src={character.image} alt={name} onClick={navigateHandler} />
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addFavorite: (character) => dispatch(addFavorite(character)),
+    removeFavorite: (id) => dispatch(removeFavorite(id)),
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    favorites: state.favorites,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);
