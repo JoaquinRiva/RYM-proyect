@@ -12,6 +12,7 @@
   "dependencies": {
     "@redux-devtools/extension": "^3.2.5",
     "axios": "^1.4.0",
+    "nodemon": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.2",
